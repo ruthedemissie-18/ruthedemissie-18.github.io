@@ -24,10 +24,6 @@
             color: var(--deep-earth);
             background-color: var(--warm-bg);
             line-height: 1.7;
-            background-image: linear-gradient(rgba(253, 250, 246, 0.85), rgba(253, 250, 246, 0.85)), 
-            url('background.jpg');
-            background-attachment: fixed;
-            background-size: cover;
         }
 
         /* --- STICKY NAV --- */
@@ -49,7 +45,7 @@
         .nav-links a { text-decoration: none; color: var(--deep-earth); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:hover { color: var(--soft-clay); }
 
-        /* --- HERO --- */
+        /* --- HERO WITH PARALLAX BUILDING BACKGROUND --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -57,10 +53,53 @@
             justify-content: space-between;
             padding: 0 10%;
             gap: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('EngineeringBuilding.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 0;
+            transition: opacity 0.1s;
+        }
+
+        /* Vignette blur overlay — strong blur near center/image area, lighter on edges */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(253,250,246,0.55) 0%, rgba(253,250,246,0.3) 40%, rgba(253,250,246,0.15) 100%);
+            backdrop-filter: blur(3px);
+        }
+
+        /* Fade to cream at bottom */
+        .hero-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 220px;
+            background: linear-gradient(to bottom, transparent, var(--warm-bg));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 4rem;
         }
 
         .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1.1; margin-bottom: 1rem; }
-        .hero-text p { font-size: 1.1rem; color: var(--soft-clay); font-style: italic; margin-bottom: 2rem; max-width: 500px; }
+        .hero-text p { font-size: 1.1rem; color: var(--soft-clay); font-style: italic; margin-bottom: 1rem; max-width: 500px; }
 
         .hero-image {
             width: 400px;
@@ -68,8 +107,9 @@
             background: var(--accent-cream);
             border-radius: 4px;
             overflow: hidden;
-            box-shadow: 20px 20px 0px var(--accent-cream);
+            box-shadow: 20px 20px 0px var(--accent-cream), 0 8px 40px rgba(0,0,0,0.18);
             border: 1px solid rgba(0,0,0,0.05);
+            flex-shrink: 0;
         }
 
         .hero-image img {
@@ -98,9 +138,76 @@
         .card-header h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
         .location { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
 
+        /* --- EXPERIENCE WITH LOGO --- */
+        .exp-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        /* --- PROJECTS GRID --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Critical thinking block */
+        .critical-thinking {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(166, 124, 82, 0.08);
+            border-radius: 6px;
+            border-left: 2px solid var(--soft-clay);
+        }
+
+        .critical-thinking .ct-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--soft-clay);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .critical-thinking p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
         /* --- SKILLS --- */
         .skills-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
         .skill-pill { padding: 0.6rem 1.5rem; background: var(--accent-cream); border-radius: 50px; font-size: 0.9rem; border: 1px solid rgba(166,124,82,0.2); }
+
+        /* --- EDUCATION --- */
+        .edu-card {
+            background: rgba(255,255,255,0.4);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--soft-clay);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .edu-card h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .edu-card .degree { color: var(--soft-clay); font-style: italic; margin-bottom: 1rem; }
+        .edu-card .honors { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1rem; }
+        .honor-pill { display: inline-block; padding: 0.4rem 1rem; background: var(--accent-cream); border-radius: 50px; font-size: 0.82rem; color: var(--deep-earth); border: 1px solid rgba(166,124,82,0.2); }
 
         /* --- CONTACT --- */
         .contact-box { text-align: center; background: var(--deep-earth); color: white; padding: 4rem; border-radius: 12px; }
@@ -108,10 +215,13 @@
         .btn { display: inline-block; padding: 1rem 2rem; border: 1px solid white; color: white; text-decoration: none; margin: 0 10px; border-radius: 4px; transition: 0.3s; }
         .btn:hover { background: white; color: var(--deep-earth); }
 
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 150px; height: auto; padding-bottom: 50px; }
+            .hero-content { flex-direction: column-reverse; text-align: center; padding-top: 150px; padding-bottom: 50px; }
+            .hero { height: auto; padding-top: 0; padding-bottom: 0; }
             .hero-image { width: 300px; height: 380px; margin: 0 auto; }
             .hero-text h1 { font-size: 3rem; }
+            .card-header { flex-direction: column; gap: 0.25rem; }
         }
     </style>
 </head>
@@ -123,25 +233,33 @@
             <a href="#home">Home</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
+    <!-- HERO -->
     <section id="home" class="hero">
-        <div class="hero-text">
-            <h1>Ruth Demissie</h1>
-            <p>CS: Data Science and Information Systems Student at Biola University</p>
-            <p style="color: var(--text-muted); font-style: normal;">I'm a Data Science student at Biola University who loves being at the intersection of technology and people. I'm genuinely excited about where technology is headed — and who it can help along the way.</p>
-        </div>
-        <div class="hero-image">
-            <img src="MainProfessionalPhoto.jpg" alt="Ruth Demissie">
+        <div class="hero-bg"></div>
+        <div class="hero-fade"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Ruth Demissie</h1>
+                <p>CS: Data Science and Information Systems Student at Biola University</p>
+                <p style="color: var(--text-muted); font-style: normal;">I'm a Data Science student at Biola University who loves being at the intersection of technology and people. I'm genuinely excited about where technology is headed — and who it can help along the way.</p>
+            </div>
+            <div class="hero-image">
+                <img src="MainProfessionalPhoto.jpg" alt="Ruth Demissie">
+            </div>
         </div>
     </section>
 
+    <!-- EXPERIENCE -->
     <section id="experience">
         <h2 class="section-title">Experience</h2>
         
         <div class="content-card">
+            <img src="BiolaAILab.png" alt="Biola AI Lab" class="exp-logo">
             <div class="card-header">
                 <h3>Apprentice</h3>
                 <span class="location">Biola AI Lab</span>
@@ -150,6 +268,7 @@
         </div>
 
         <div class="content-card">
+            <img src="BiolaUniversity.jpeg" alt="Biola Engineering Club" class="exp-logo">
             <div class="card-header">
                 <h3>Vice President</h3>
                 <span class="location">Biola Engineering Club</span>
@@ -158,6 +277,7 @@
         </div>
 
         <div class="content-card">
+            <img src="GebeyaInc.png" alt="Gebeya Inc." class="exp-logo">
             <div class="card-header">
                 <h3>Business Development Intern</h3>
                 <span class="location">Gebeya Inc.</span>
@@ -166,6 +286,7 @@
         </div>
 
         <div class="content-card">
+            <img src="OleMissLogo.png" alt="University of Mississippi" class="exp-logo">
             <div class="card-header">
                 <h3>Distance Learning Facilitator</h3>
                 <span class="location">University of Mississippi</span>
@@ -174,27 +295,44 @@
         </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects">
         <h2 class="section-title">Projects</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+        <div class="projects-grid">
+
+            <div class="content-card">
+                <span class="tag">Academic Project — MIS</span>
+                <img src="MISProject.png" alt="MIS Tutoring Business Analysis" class="project-image">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">Tutoring Business Data Analysis</h3>
+                <p>Analyzed a tutoring business dataset using a progression of tools — starting with Excel and SQL for data cleaning and querying, Tableau for visualization, and finally AI-assisted analysis to deepen our understanding of available analytical methods. Created visualizations designed to help a business owner make more informed decisions and forecast future revenue. Through this project, I gained my first real exposure to working with business data end-to-end — learning how to move between tools depending on what the data demanded, and coming to appreciate how visualization can make complex information accessible to non-technical stakeholders. If I were to do this project again, I would push myself to explore the dataset more deeply — going beyond the obvious metrics to uncover less apparent patterns and insights that could add even more value to the business.</p>
+            </div>
+
             <div class="content-card">
                 <span class="tag">1st Place — FaithTech OC Hackathon</span>
+                <img src="FaithTechOCHack.jpeg" alt="FaithTech OC Hackathon" class="project-image">
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">Shepherdly</h3>
                 <p>A discipleship app designed to support spiritual growth and community connection through technology. Built and pitched at the FaithTech OC Hackathon, where it won first place.</p>
             </div>
+
             <div class="content-card">
                 <span class="tag">Research & Learning</span>
+                <img src="ResearchImage.png" alt="Vision Transformers Research" class="project-image">
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">Vision Transformers & Face Recognition</h3>
                 <p>A learning experience working alongside a university professor to explore Vision Transformer architectures and face recognition technology. Gained foundational exposure to neural networks and machine learning concepts.</p>
             </div>
+
         </div>
     </section>
 
+    <!-- SKILLS -->
     <section id="skills">
         <h2 class="section-title">Core Skills</h2>
         <div class="skills-grid">
             <span class="skill-pill">Python</span>
             <span class="skill-pill">C++</span>
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">Excel</span>
+            <span class="skill-pill">Tableau</span>
             <span class="skill-pill">Data Science</span>
             <span class="skill-pill">Information Systems</span>
             <span class="skill-pill">Research & Analysis</span>
@@ -205,6 +343,21 @@
         </div>
     </section>
 
+    <!-- EDUCATION -->
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="edu-card">
+            <h3>Biola University</h3>
+            <p class="degree">B.S. Computer Science — Data Science & Information Systems</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Expected Graduation: May 2028</p>
+            <div class="honors">
+                <span class="honor-pill">🏅 Chancellor's Honor Roll — 2024–2025</span>
+                <span class="honor-pill">🏅 Dean's Honor List — Fall 2025</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
     <section id="contact">
         <div class="contact-box">
             <h2>Let's Connect</h2>
@@ -216,6 +369,18 @@
             ruthedemissie@gmail.com
         </p>
     </section>
+
+    <script>
+        // Fade out hero background as user scrolls
+        const heroBg = document.querySelector('.hero-bg');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const fadeStart = 0;
+            const fadeEnd = window.innerHeight * 0.8;
+            const opacity = Math.max(0, 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart));
+            heroBg.style.opacity = opacity;
+        });
+    </script>
 
 </body>
 </html>
