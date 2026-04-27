@@ -10,10 +10,12 @@
     <style>
         :root {
             --warm-bg: #fdfaf6;
-            --soft-clay: #a67c52;
-            --deep-earth: #3e362e;
-            --accent-cream: #f4eee1;
-            --text-muted: #6b635d;
+            --soft-clay: #A07856;
+            --deep-earth: #3D211A;
+            --accent-cream: #CBB799;
+            --text-muted: #6F4D38;
+            --card-bg: #CBB799;
+            --card-text: #F5F5DC;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,10 +24,10 @@
         body {
             font-family: 'Inter', sans-serif;
             color: var(--deep-earth);
-            background-color: var(--warm-bg);
+            background-color: #fdfaf6;
             background-image:
-                linear-gradient(rgba(166,124,82,0.12) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(166,124,82,0.12) 1px, transparent 1px);
+                linear-gradient(rgba(63,33,26,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(63,33,26,0.1) 1px, transparent 1px);
             background-size: 28px 28px;
             line-height: 1.7;
         }
@@ -35,13 +37,13 @@
             position: fixed;
             top: 0; width: 100%;
             padding: 1.5rem 10%;
-            background: rgba(253, 250, 246, 0.9);
+            background: rgba(253, 250, 246, 0.92);
             backdrop-filter: blur(8px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            border-bottom: 1px solid rgba(166, 124, 82, 0.1);
+            border-bottom: 1px solid rgba(61, 33, 26, 0.15);
         }
 
         .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: bold; font-style: italic; }
@@ -81,14 +83,13 @@
             backdrop-filter: blur(3px);
         }
 
-        /* Fade to cream at bottom */
         .hero-fade {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             height: 220px;
-            background: linear-gradient(to bottom, transparent, var(--warm-bg));
+            background: linear-gradient(to bottom, transparent, #fdfaf6);
             z-index: 1;
         }
 
@@ -127,15 +128,20 @@
         .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 3rem; text-align: center; }
 
         .content-card {
-            background: #fdfaf6;
+            background: #F8F0E5;
             padding: 2.5rem;
             border-radius: 8px;
-            border-left: 3px solid var(--soft-clay);
+            border-left: 3px solid var(--deep-earth);
             margin-bottom: 2rem;
             transition: transform 0.3s ease;
+            color: var(--deep-earth);
         }
         
-        .content-card:hover { transform: translateY(-5px); background: #fff; }
+        .content-card:hover { transform: translateY(-5px); background: #efe4d4; }
+        .content-card p { color: var(--deep-earth); }
+        .content-card h3 { color: var(--deep-earth); }
+        .content-card .location { color: var(--text-muted); }
+        .content-card .tag { color: var(--soft-clay); }
 
         .tag { font-size: 0.75rem; text-transform: uppercase; color: var(--soft-clay); font-weight: bold; margin-bottom: 0.5rem; display: block; }
         .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
@@ -170,14 +176,18 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            align-items: start;
+            align-items: stretch;
         }
         .mis-card-inner .mis-left img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 1rem;
+        }
+        .mis-card-inner .mis-right {
+            display: flex;
+            align-items: center;
         }
 
         /* Gingham border on project cards */
@@ -237,11 +247,12 @@
         .skills-grid { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; align-items: center; padding: 1rem 0; }
         .skill-pill {
             padding: 0.6rem 1.5rem;
-            background: #fdfaf6;
+            background: #F8F0E5;
             border-radius: 50px;
             font-size: 0.9rem;
-            border: 1px solid rgba(166,124,82,0.3);
-            box-shadow: 0 4px 14px rgba(166,124,82,0.15), 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid rgba(61,33,26,0.25);
+            box-shadow: 0 4px 14px rgba(111,77,56,0.15), 0 1px 3px rgba(0,0,0,0.05);
+            color: var(--deep-earth);
             animation: float linear infinite;
             transform-origin: center;
         }
@@ -291,10 +302,21 @@
             text-align: center;
         }
 
-        .edu-card h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
-        .edu-card .degree { color: var(--soft-clay); font-style: italic; margin-bottom: 1rem; }
+        .edu-card {
+            position: relative;
+            z-index: 1;
+            background: #EADECA;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--soft-clay);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .edu-card h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; color: var(--deep-earth); }
+        .edu-card .degree { color: var(--deep-earth); font-style: italic; margin-bottom: 1rem; }
         .edu-card .honors { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1rem; }
-        .honor-pill { display: inline-block; padding: 0.4rem 1rem; background: var(--accent-cream); border-radius: 50px; font-size: 0.82rem; color: var(--deep-earth); border: 1px solid rgba(166,124,82,0.2); }
+        .honor-pill { display: inline-block; padding: 0.4rem 1rem; background: #F8F0E5; border-radius: 50px; font-size: 0.82rem; color: var(--deep-earth); border: 1px solid rgba(61,33,26,0.2); }
 
         /* --- CONTACT --- */
         .contact-box { text-align: center; background: var(--deep-earth); color: white; padding: 4rem; border-radius: 12px; }
@@ -423,11 +445,14 @@
                 <span class="tag">Academic Project — MIS</span>
                 <div class="mis-card-inner">
                     <div class="mis-left">
-                        <img src="MISProject.png" alt="MIS Tutoring Business Analysis">
+                        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.3rem;">Tutoring Business Data Analysis</h3>
+                        <span class="tag" style="margin-bottom:0.2rem;">Academic Project — MIS</span>
+                        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.75rem;">Excel · SQL · Tableau · AI Analysis</p>
+                        <img src="MISProject.png" alt="MIS Tutoring Business Analysis" style="width:100%;height:200px;object-fit:cover;border-radius:6px;margin-bottom:1rem;">
+                        <p style="font-size:1rem;line-height:1.7;color:var(--deep-earth);">Analyzed a tutoring business dataset using a progression of tools — starting with Excel and SQL for data cleaning and querying, Tableau for visualization, and finally AI-assisted analysis to deepen our understanding of available analytical methods.</p>
                     </div>
                     <div class="mis-right">
-                        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:1rem;">Tutoring Business Data Analysis</h3>
-                        <p>Analyzed a tutoring business dataset using a progression of tools — starting with Excel and SQL for data cleaning and querying, Tableau for visualization, and finally AI-assisted analysis to deepen our understanding of available analytical methods. Created visualizations designed to help a business owner make more informed decisions and forecast future revenue. Through this project, I gained my first real exposure to working with business data end-to-end — learning how to move between tools depending on what the data demanded, and coming to appreciate how visualization can make complex information accessible to non-technical stakeholders. If I were to do this project again, I would push myself to explore the dataset more deeply — going beyond the obvious metrics to uncover less apparent patterns and insights that could add even more value to the business.</p>
+                        <p style="font-size:1rem;line-height:1.7;color:var(--deep-earth);">Created visualizations designed to help a business owner make more informed decisions and forecast future revenue. Through this project, I gained my first real exposure to working with business data end-to-end — learning how to move between tools depending on what the data demanded, and coming to appreciate how visualization can make complex information accessible to non-technical stakeholders. If I were to do this project again, I would push myself to explore the dataset more deeply — going beyond the obvious metrics to uncover less apparent patterns and insights that could add even more value to the business.</p>
                     </div>
                 </div>
             </div>
@@ -460,8 +485,8 @@
                 <p class="degree">B.S. Computer Science — Data Science & Information Systems</p>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Expected Graduation: May 2028</p>
                 <div class="honors">
-                    <span class="honor-pill">🏅 Chancellor's Honor Roll — 2024–2025</span>
-                    <span class="honor-pill">🏅 Dean's Honor List — Fall 2025</span>
+                    <span class="honor-pill">Chancellor's Honor Roll — 2024–2025</span>
+                    <span class="honor-pill">Dean's Honor List — Fall 2025</span>
                 </div>
             </div>
         </div>
